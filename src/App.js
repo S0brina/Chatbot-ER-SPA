@@ -3,11 +3,12 @@ import ChatBubbleUser from './components/ChatBubbleUser';
 import ChatBubbleLLM from './components/ChatBubbleLLM';
 import { sendMessage } from './controllers/ChatController';
 import './styles/ChatApp.css';
-
+import FileUploadButton from './components/FileUploadButton';
 
 function App() {
   const [messages, setMessages] = useState([]);  // Estado para los mensajes del chat
   const [inputText, setInputText] = useState('');  // Estado para el texto del usuario
+  const [selectedFile, setSelectedFile] = useState(null);  // Estado para el archivo seleccionado
 
   // Función para manejar el envío de mensajes al backend
   const handleSend = async () => {
@@ -33,7 +34,21 @@ function App() {
 
       // Limpiar el input de texto después de enviar
       setInputText('');
+      setSelectedFile(null);  // Limpiar el archivo seleccionado
     }
+  };
+
+  // Función para manejar la selección de archivo
+  const handleFileSelect = (file) => {
+    setSelectedFile(file);
+    const fileType = file.name.split('.').pop().toLowerCase();
+    setInputText(`${file.name} (${fileType})`);
+  };
+
+  // Función para eliminar el archivo seleccionado
+  const handleFileRemove = () => {
+    setSelectedFile(null);
+    setInputText('');  // Limpiar el input cuando se remueve el archivo
   };
 
   return (
@@ -48,6 +63,11 @@ function App() {
         ))}
       </div>
       <div className="input-container">
+        <FileUploadButton
+          onFileSelect={handleFileSelect}
+          onFileRemove={handleFileRemove}
+          selectedFile={selectedFile}
+        />
         <textarea
           placeholder="Escribe tu mensaje"
           value={inputText}
