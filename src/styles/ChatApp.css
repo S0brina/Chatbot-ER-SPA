@@ -1,0 +1,123 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+  }
+  
+.chat-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #000000; /* Fondo claro */
+  }
+  
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #000000;
+  }
+  
+textarea {
+    flex-grow: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* Fijar el tamaño */
+    width: 100%;
+    max-width: 100%;
+  }
+  
+.send-button {
+    padding: 10px 20px;
+  }
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: #840da1;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+button:hover {
+    background-color:#66087e;
+  }
+  
+#file-upload {
+    display: none; /* Ocultar el input de archivo */
+}
+
+.file-upload-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: #840da1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+  }
+  
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .chat-bubble {
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 60%; /* Máximo ancho de la burbuja */
+    word-wrap: break-word; /* Asegura que las palabras largas se dividan */
+    overflow-wrap: break-word; /* Maneja textos largos para que se ajusten a la burbuja */
+    white-space: pre-wrap; /* Mantiene los saltos de línea y permite el ajuste automático */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Añade una pequeña sombra */
+  }
+  
+  /* Burbujas del usuario */
+  .user-bubble {
+    background-color: #cc00ff41;
+    color: white;
+    align-self: flex-end;
+    text-align: left;
+  }
+  
+  /* Burbujas del modelo LLM */
+  .llm-bubble {
+    background-color: #f1f0f0;
+    color: black;
+    align-self: flex-start;
+    text-align: left;
+  }
+  
+  @media (max-width: 768px) {
+    /* Ajustes responsivos para pantallas pequeñas */
+    .input-container {
+      flex-direction: column;
+    }
+  
+    .send-button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    textarea {
+      margin: 10px 0;
+    }
+
+    .chat-bubble {
+      max-width: 80%; /* Ajustar el tamaño de las burbujas en pantallas pequeñas */
+    }
+  }
