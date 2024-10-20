@@ -8,7 +8,7 @@ function FileUploadButton({ onFileSelect, selectedFile }) {
     if (file) {
       const fileType = file.name.split('.').pop().toLowerCase();
       if (['txt', 'doc', 'pdf'].includes(fileType)) {
-        onFileSelect(file);  // Llamamos a la función pasada como prop
+        onFileSelect(file); 
       } else {
         alert('Solo se permiten archivos .txt, .doc o .pdf');
       }

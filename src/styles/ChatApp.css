@@ -54,7 +54,7 @@ button:hover {
   }
   
 #file-upload {
-    display: none; /* Ocultar el input de archivo */
+    display: none;
 }
 
 .file-upload-button {
@@ -79,31 +79,27 @@ button:hover {
     padding: 10px;
     border-radius: 15px;
     margin-bottom: 10px;
-    max-width: 60%; /* Máximo ancho de la burbuja */
-    word-wrap: break-word; /* Asegura que las palabras largas se dividan */
-    overflow-wrap: break-word; /* Maneja textos largos para que se ajusten a la burbuja */
-    white-space: pre-wrap; /* Mantiene los saltos de línea y permite el ajuste automático */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Añade una pequeña sombra */
+    overflow-wrap: break-word; 
+    white-space: pre-wrap; 
+    color: rgba(255, 255, 255, 0.89);
   }
   
-  /* Burbujas del usuario */
   .user-bubble {
     background-color: #cc00ff41;
     color: white;
     align-self: flex-end;
     text-align: left;
+    max-width: 60%; 
   }
   
-  /* Burbujas del modelo LLM */
   .llm-bubble {
-    background-color: #f1f0f0;
-    color: black;
+    background-color: #f1f0f018;
     align-self: flex-start;
     text-align: left;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
   }
   
   @media (max-width: 768px) {
-    /* Ajustes responsivos para pantallas pequeñas */
     .input-container {
       flex-direction: column;
     }
@@ -118,6 +114,6 @@ button:hover {
     }
 
     .chat-bubble {
-      max-width: 80%; /* Ajustar el tamaño de las burbujas en pantallas pequeñas */
+      max-width: 80%; 
     }
   }
