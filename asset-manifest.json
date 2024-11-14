@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Chatbot-ER-SPA/static/css/main.cf6ffe49.css",
+    "main.js": "/Chatbot-ER-SPA/static/js/main.52ae05c1.js",
+    "static/js/453.0dadcf84.chunk.js": "/Chatbot-ER-SPA/static/js/453.0dadcf84.chunk.js",
+    "index.html": "/Chatbot-ER-SPA/index.html",
+    "main.cf6ffe49.css.map": "/Chatbot-ER-SPA/static/css/main.cf6ffe49.css.map",
+    "main.52ae05c1.js.map": "/Chatbot-ER-SPA/static/js/main.52ae05c1.js.map",
+    "453.0dadcf84.chunk.js.map": "/Chatbot-ER-SPA/static/js/453.0dadcf84.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf6ffe49.css",
+    "static/js/main.52ae05c1.js"
+  ]
+}
