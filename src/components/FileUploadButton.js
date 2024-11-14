@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-
-function FileUploadButton({ onFileSelect, selectedFile }) {
+function FileUploadButton({ onFileSelect, selectedFile, onFileRemove }) {
   const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
@@ -30,6 +29,12 @@ function FileUploadButton({ onFileSelect, selectedFile }) {
         onChange={handleFileChange}
         accept=".txt,.doc,.pdf"
       />
+      {selectedFile && (
+        <div className="file-info">
+          <p>{selectedFile.name}</p>
+          <button onClick={onFileRemove}>Eliminar archivo</button>
+        </div>
+      )}
     </div>
   );
 }

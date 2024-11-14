@@ -1,24 +1,43 @@
 import React, { useState} from 'react';
 import ChatBubbleUser from './components/ChatBubbleUser';
 import ChatBubbleLLM from './components/ChatBubbleLLM';
-import { sendMessage } from './controllers/ChatController';
+import { sendMessage} from './controllers/ChatController';
 import './styles/ChatApp.css';
 import FileUploadButton from './components/FileUploadButton';
+import { sendFile } from './controllers/api';
 
 function App() {
-  const [messages, setMessages] = useState([]);  
-  const [inputText, setInputText] = useState('');  
-  const [selectedFile, setSelectedFile] = useState(null);  
+  const [messages, setMessages] = useState([]);
+  const [inputText, setInputText] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSend = async () => {
-    if (inputText.trim()) { 
+    if (selectedFile) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: 'user', message: `Archivo enviado: ${selectedFile.name}` }
+      ]);
+
+      try {
+        const response = await sendFile(selectedFile); 
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { type: 'llm', message: response }
+        ]);
+      } catch (error) {
+        console.error('Error al enviar el archivo:', error);
+      }
+
+      setSelectedFile(null);
+      setInputText(''); 
+    } else if (inputText.trim()) {
       setMessages((prevMessages) => [
         ...prevMessages,
         { type: 'user', message: inputText }
       ]);
 
       try {
-        const response = await sendMessage(inputText);
+        const response = await sendMessage(inputText); 
         setMessages((prevMessages) => [
           ...prevMessages,
           { type: 'llm', message: response } 
@@ -27,8 +46,7 @@ function App() {
         console.error('Error:', error);
       }
 
-      setInputText('');
-      setSelectedFile(null); 
+      setInputText(''); 
     }
   };
 
@@ -40,7 +58,7 @@ function App() {
 
   const handleFileRemove = () => {
     setSelectedFile(null);
-    setInputText(''); 
+    setInputText('');
   };
 
   return (
@@ -57,13 +75,13 @@ function App() {
       <div className="input-container">
         <FileUploadButton
           onFileSelect={handleFileSelect}
-          onFileRemove={handleFileRemove}
           selectedFile={selectedFile}
+          onFileRemove={handleFileRemove}
         />
         <textarea
-          placeholder="Escribe tu mensaje"
+          placeholder="Escribe tu mensaje o selecciona un archivo"
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)} 
+          onChange={(e) => setInputText(e.target.value)}
           rows="2"
         />
         <button className="send-button" onClick={handleSend}>
