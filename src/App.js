@@ -3,62 +3,32 @@ import ChatBubbleUser from './components/ChatBubbleUser';
 import ChatBubbleLLM from './components/ChatBubbleLLM';
 import { sendMessage} from './controllers/ChatController';
 import './styles/ChatApp.css';
-import FileUploadButton from './components/FileUploadButton';
-import { sendFile } from './controllers/api';
+//import FileUploadButton from './components/FileUploadButton';
+//import { sendFile } from './controllers/api';
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSend = async () => {
-    if (selectedFile) {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: 'user', message: inputText } // Add user message
+    ]);
+  
+    try {
+      const response = await sendMessage(inputText);
+      console.log('LLM Response:', response); // Debug log for LLM response
+  
       setMessages((prevMessages) => [
         ...prevMessages,
-        { type: 'user', message: `Archivo enviado: ${selectedFile.name}` }
+        { type: 'llm', message: response } // Add LLM response message
       ]);
-
-      try {
-        const response = await sendFile(selectedFile); 
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: 'llm', message: response }
-        ]);
-      } catch (error) {
-        console.error('Error al enviar el archivo:', error);
-      }
-
-      setSelectedFile(null);
-      setInputText(''); 
-    } else if (inputText.trim()) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { type: 'user', message: inputText }
-      ]);
-
-      try {
-        const response = await sendMessage(inputText); 
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: 'llm', message: response } 
-        ]);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-
-      setInputText(''); 
+    } catch (error) {
+      console.error('Error:', error);
     }
-  };
-
-  const handleFileSelect = (file) => {
-    setSelectedFile(file);
-    const fileType = file.name.split('.').pop().toLowerCase();
-    setInputText(`${file.name} (${fileType})`);
-  };
-
-  const handleFileRemove = () => {
-    setSelectedFile(null);
-    setInputText('');
+  
+    setInputText(''); // Clear user input
   };
 
   return (
@@ -72,22 +42,18 @@ function App() {
           )
         ))}
       </div>
-      <div className="input-container">
-        <FileUploadButton
-          onFileSelect={handleFileSelect}
-          selectedFile={selectedFile}
-          onFileRemove={handleFileRemove}
-        />
-        <textarea
-          placeholder="Escribe tu mensaje o selecciona un archivo"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          rows="2"
-        />
-        <button className="send-button" onClick={handleSend}>
-          Enviar
-        </button>
+      <div className='input-container'>
+      <textarea
+        placeholder="Escribe tu mensaje o selecciona un archivo"
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+        rows="2"
+      />
+      <button className="send-button" onClick={handleSend}>
+        Enviar
+      </button>
       </div>
+      
     </div>
   );
 }
