@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/call-llm-text/';
+const API_URL = 'https://chatbot-gpt4o-mini.vercel.app/call-llm-text/';
 
 export const sendMessage = async (inputData) => {
   try {
