@@ -14,7 +14,7 @@ function FileUploadButton({ onFileUploaded }) {
           formData.append('file', file);
 
           const response = await axios.post(
-            'https://chatbot-gpt4o-mini.vercel.app/upload-file/',
+            'http://127.0.0.1:8000/upload-file/',
             formData,
             {
               headers: {

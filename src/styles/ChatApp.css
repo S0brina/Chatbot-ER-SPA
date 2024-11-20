@@ -16,25 +16,29 @@
     background-color: #000000; /* Fondo claro */
   }
   
-.input-container {
+  .input-container {
     display: flex;
     align-items: center;
-    padding: 10px;
     background-color: #000000;
+    padding: 10px;
   }
   
-textarea {
+  textarea {
     flex-grow: 1;
     margin: 0 10px;
     padding: 10px;
     border-radius: 5px;
+    border: 1px solid #ccc;
   }
   
-.send-button {
+  
+  .send-button {
     padding: 10px 20px;
+    margin-left: 10px;
   }
+  
 
-button {
+  button {
     padding: 10px;
     border: none;
     background-color: #840da1;
@@ -44,26 +48,34 @@ button {
     transition: background-color 0.3s ease;
   }
   
-button:hover {
-    background-color:#66087e;
+  button:hover {
+    background-color: #66087e;
   }
   
 #file-upload {
     display: none;
 }
 
+.file-upload-container {
+  margin-right: 10px;
+}
+
 .file-upload-button {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    background-color: #840da1;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-  }
+  width: 40px;
+  height: 40px;
+  background-color: #840da1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+textarea {
+  flex-grow: 1;
+  resize: none;
+}
   
 .custom-file-upload {
     display: inline-block;
@@ -96,19 +108,19 @@ button:hover {
   
   @media (max-width: 768px) {
     .input-container {
-      flex-direction: column;
+      flex-direction: row; /* Mantiene distribución en línea */
     }
   
     .send-button {
-      width: 100%;
-      margin-top: 10px;
+      margin-left: 10px;
+      flex-shrink: 0;
     }
   
     textarea {
-      margin: 10px 0;
+      flex-grow: 1;
     }
-
-    .chat-bubble {
-      max-width: 80%; 
+  
+    .file-upload-container {
+      margin-right: 10px;
     }
   }

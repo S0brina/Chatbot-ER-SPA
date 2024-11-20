@@ -4,6 +4,7 @@ import ChatBubbleLLM from './components/ChatBubbleLLM';
 import { sendMessage } from './controllers/ChatController';
 import './styles/ChatApp.css';
 import FileUploadButton from './components/FileUploadButton';
+import ReactMarkdown from 'react-markdown';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -38,15 +39,16 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-box">
-        {messages.map((msg, index) => (
+      {messages.map((msg, index) => (
           msg.type === 'user' ? (
             <ChatBubbleUser key={index} message={msg.message} />
           ) : (
-            <ChatBubbleLLM key={index} message={msg.message} />
+            <ChatBubbleLLM key={index} message={<ReactMarkdown>{msg.message}</ReactMarkdown>} />
           )
-        ))}
+        ))}  
       </div>
       <div className="input-container">
+        <FileUploadButton onFileUploaded={handleFileUpload} />
         <textarea
           placeholder="Escribe tu mensaje o selecciona un archivo"
           value={inputText}
@@ -56,7 +58,6 @@ function App() {
         <button className="send-button" onClick={handleSend}>
           Enviar
         </button>
-        <FileUploadButton onFileUploaded={handleFileUpload} />
       </div>
     </div>
   );
