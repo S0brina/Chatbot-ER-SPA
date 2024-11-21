@@ -14,7 +14,7 @@ function FileUploadButton({ onFileUploaded }) {
           formData.append('file', file);
 
           const response = await axios.post(
-            'http://127.0.0.1:8000/upload-file/',
+            'https://chatbot-er-akghb0gfg5czfzfk.brazilsouth-01.azurewebsites.net/upload-file/',
             formData,
             {
               headers: {

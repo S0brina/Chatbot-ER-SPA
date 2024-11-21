@@ -5,6 +5,7 @@ import { sendMessage } from './controllers/ChatController';
 import './styles/ChatApp.css';
 import FileUploadButton from './components/FileUploadButton';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -39,13 +40,23 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-box">
-      {messages.map((msg, index) => (
+        {messages.map((msg, index) =>
           msg.type === 'user' ? (
             <ChatBubbleUser key={index} message={msg.message} />
           ) : (
-            <ChatBubbleLLM key={index} message={<ReactMarkdown>{msg.message}</ReactMarkdown>} />
+            <ChatBubbleLLM
+              key={index}
+              message={
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  className="markdown"
+                >
+                  {msg.message}
+                </ReactMarkdown>
+              }
+            />
           )
-        ))}  
+        )}
       </div>
       <div className="input-container">
         <FileUploadButton onFileUploaded={handleFileUpload} />
