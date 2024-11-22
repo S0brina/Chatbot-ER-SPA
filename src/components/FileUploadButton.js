@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
+import { uploadFile } from '../controllers/ChatController';
 
 function FileUploadButton({ onFileUploaded }) {
   const fileInputRef = useRef(null);
@@ -7,31 +8,12 @@ function FileUploadButton({ onFileUploaded }) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const fileType = file.name.split('.').pop().toLowerCase();
-      if (['txt', 'docx', 'pdf'].includes(fileType)) {
-        try {
-          const formData = new FormData();
-          formData.append('file', file);
-
-          const response = await axios.post(
-            'https://chatbot-er-akghb0gfg5czfzfk.brazilsouth-01.azurewebsites.net/upload-file/',
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
-
-          // Asegúrate de usar el campo correcto de la respuesta
-          const resultText = response.data.result; // Leer el campo `result`
-          onFileUploaded(resultText); // Pasar el texto procesado al componente padre
-        } catch (error) {
-          console.error('Error al subir archivo:', error);
-          alert('Hubo un error al procesar el archivo. Intenta nuevamente.');
-        }
-      } else {
-        alert('Solo se permiten archivos .txt, .docx o .pdf');
+      try {
+        const resultText = await uploadFile(file);
+        onFileUploaded(resultText);
+      } catch (error) {
+        console.error('Error al subir archivo:', error);
+        alert('Hubo un error al procesar el archivo. Intenta nuevamente.');
       }
     }
   };
